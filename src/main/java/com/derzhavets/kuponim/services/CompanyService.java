@@ -10,4 +10,8 @@ public interface CompanyService {
 	
 	Company save(Company company);
 
+	Company getById(Long id) throws Exception;
+
+	void delete(Long id);
+
 }

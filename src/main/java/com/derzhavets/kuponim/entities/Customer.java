@@ -31,6 +31,10 @@ public class Customer {
 			inverseJoinColumns = @JoinColumn(name = "COUPON_ID"))
 	private Set<Coupon> coupons = new HashSet<>();
 	
+	public Set<Coupon> getCoupons() {
+		return coupons;
+	}
+
 	public Long getId() {
 		return id;
 	}

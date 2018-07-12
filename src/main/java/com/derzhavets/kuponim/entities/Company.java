@@ -3,15 +3,20 @@ package com.derzhavets.kuponim.entities;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity @Table(name = "COMPANIES")
 public class Company {
@@ -29,10 +34,11 @@ public class Company {
 	@Column(name = "EMAIL")
 	private String email;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JoinTable(name = "COMPANY_COUPON", 
 				joinColumns = @JoinColumn(name = "COMPANY_ID"),
 				inverseJoinColumns = @JoinColumn(name = "COUPON_ID"))
+	@JsonManagedReference
 	private Set<Coupon> coupons = new HashSet<>();
 	
 	public Long getId() {
@@ -68,7 +74,7 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Company [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", coupons="
-				+ coupons + "]";
+				+ coupons.stream().map(cp -> cp.getId()).collect(Collectors.toList())+ "]";
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.derzhavets.kuponim.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,31 +13,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.derzhavets.kuponim.entities.Company;
-import com.derzhavets.kuponim.services.CompanyService;
+import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.helpers.CouponType;
+import com.derzhavets.kuponim.services.CouponService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/companies")
-public class CompaniesController {
+@RequestMapping("/coupons")
+public class CouponsController {
 	
 	@Autowired
-	private CompanyService companyService;
+	private CouponService couponService;
 	
 	@GetMapping("/")
-	public List<Company> getAll() {
-		return companyService.getAll();
+	public List<Coupon> getAll() {
+		return couponService.getAll();
 	}
 	
-	@PostMapping("/")
-	public Company save(@RequestBody Company company) {
-		return companyService.save(company);
+	@GetMapping("/{id}")
+	public Coupon getOne(@PathVariable("id") Long id) throws Exception {
+		return couponService.findOneById(id);
+	}
+	
+	@PostMapping("/{id}")
+	public Coupon save(@RequestBody Coupon c, @PathVariable("id") Long companyId) {
+		return couponService.save(c, companyId);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Long id) {
-		System.err.println("Deleting id: " + id);
-		companyService.delete(id);
+		couponService.delete(id);
+	}
+	
+	@GetMapping("/types")
+	public List<CouponType> getAllTypes() {
+		return Arrays.asList(CouponType.values());
 	}
 
 }
+	

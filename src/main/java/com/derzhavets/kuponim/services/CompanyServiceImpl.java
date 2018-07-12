@@ -27,4 +27,14 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyDao.save(company);
 	}
 	
+	@Override
+	public Company getById(Long id) throws Exception {
+		return companyDao.findById(id).orElseThrow(() -> new Exception());
+	}
+
+	@Override
+	public void delete(Long id) {
+		companyDao.deleteById(id);
+	}
+	
 }

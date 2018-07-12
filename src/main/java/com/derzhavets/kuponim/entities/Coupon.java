@@ -1,17 +1,21 @@
 package com.derzhavets.kuponim.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.derzhavets.kuponim.helpers.CouponType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity @Table(name = "COUPONS")
 public class Coupon {
@@ -24,10 +28,10 @@ public class Coupon {
 	private String title;
 	
 	@Column(name = "START_DATE")
-	private Date startDate;
+	private LocalDate startDate;
 	
 	@Column(name = "END_DATE")
-	private Date endDate;
+	private LocalDate endDate;
 	
 	@Column(name = "AMOUNT")
 	private int amount;
@@ -45,6 +49,11 @@ public class Coupon {
 	@Column(name = "IMAGE_URL")
 	private String imageUrl;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "COMPANY_ID", referencedColumnName = "COMPANY_ID")
+	@JsonBackReference
+	private Company company;
+	
 	public Long getId() {
 		return id;
 	}
@@ -61,19 +70,19 @@ public class Coupon {
 		this.title = title;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 
@@ -115,6 +124,22 @@ public class Coupon {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	
+
+	public Company getCompany() {
+		return company;
+	}
+	
+	public void setCompany(Company company) {
+		this.company = company;	
+	}
+
+	@Override
+	public String toString() {
+		return "Coupon [title=" + title + ", startDate=" + startDate + ", endDate=" + endDate + ", amount=" + amount
+				+ ", type=" + type + ", message=" + message + ", price=" + price + ", imageUrl=" + imageUrl
+				+ ", company=" + company + "]";
 	}
 	
 }

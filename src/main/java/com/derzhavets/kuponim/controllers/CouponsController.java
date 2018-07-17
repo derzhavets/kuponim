@@ -32,12 +32,12 @@ public class CouponsController {
 	
 	@GetMapping("/{id}")
 	public Coupon getOne(@PathVariable("id") Long id) throws Exception {
-		return couponService.findOneById(id);
+		return couponService.getById(id);
 	}
 	
 	@PostMapping("/{id}")
-	public Coupon save(@RequestBody Coupon c, @PathVariable("id") Long companyId) {
-		return couponService.save(c, companyId);
+	public Coupon save(@RequestBody Coupon coupon, @PathVariable("id") Long companyId) {
+		return couponService.save(coupon, companyId);
 	}
 	
 	@DeleteMapping("/{id}")

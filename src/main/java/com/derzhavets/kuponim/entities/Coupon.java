@@ -1,6 +1,8 @@
 package com.derzhavets.kuponim.entities;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -53,6 +56,9 @@ public class Coupon {
 	@JoinColumn(name = "COMPANY_ID", referencedColumnName = "COMPANY_ID")
 	@JsonBackReference
 	private Company company;
+	
+	@ManyToMany(mappedBy = "coupons")
+		private Set<Customer> customers = new HashSet<>();
 	
 	public Long getId() {
 		return id;

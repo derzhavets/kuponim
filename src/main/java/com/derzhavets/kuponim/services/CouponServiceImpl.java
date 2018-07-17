@@ -38,7 +38,7 @@ public class CouponServiceImpl implements CouponService {
 	}
 
 	@Override
-	public Coupon findOneById(Long id) throws Exception {
+	public Coupon getById(Long id) throws Exception {
 		return couponDao.findById(id).orElseThrow(() -> new Exception());
 	}
 

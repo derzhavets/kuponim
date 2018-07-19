@@ -15,7 +15,7 @@ public class KuponimApplication {
 		SpringApplication.run(KuponimApplication.class, args);
 	}
 	
-	@Bean
+	@Bean	
 	public FilterRegistrationBean<CorsFilter> corsFilter() { 
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	    CorsConfiguration config = new CorsConfiguration();

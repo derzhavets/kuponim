@@ -9,6 +9,7 @@ import com.derzhavets.kuponim.dao.CompanyRepository;
 import com.derzhavets.kuponim.dao.CouponRepository;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.helpers.EntityNotFoundException;
 
 @Service
 public class CouponServiceImpl implements CouponService {
@@ -19,17 +20,18 @@ public class CouponServiceImpl implements CouponService {
 	@Autowired
 	private CompanyRepository companyDao;
 	
-	/* (non-Javadoc)
-	 * @see com.derzhavets.kuponim.services.CouponService#getAll()
-	 */
+	@Autowired
+	private CompanyService companyService;
+	
 	@Override
 	public List<Coupon> getAll() {
 		return couponDao.findAll();
 	}
-
+	
+	
 	@Override
-	public Coupon save(Coupon coupon, Long companyId) {
-		Company company = companyDao.findById(companyId).get();
+	public Coupon save(Coupon coupon, Long companyId) throws EntityNotFoundException {
+		Company company = companyService.getById(companyId);
 		coupon.setCompany(company);
 		couponDao.save(coupon);
 		company.getCoupons().add(coupon);
@@ -38,13 +40,16 @@ public class CouponServiceImpl implements CouponService {
 	}
 
 	@Override
-	public Coupon getById(Long id) throws Exception {
-		return couponDao.findById(id).orElseThrow(() -> new Exception());
+	public Coupon getById(Long id) throws EntityNotFoundException {
+		return couponDao.findById(id).orElseThrow(() -> 
+			new EntityNotFoundException("Coupon with id " + id + " is not found."));
 	}
 
 	@Override
-	public void delete(Long id) {
-		couponDao.deleteById(id);
+	public Coupon delete(Long id) throws EntityNotFoundException {
+		Coupon coupon = getById(id);
+		couponDao.delete(coupon);
+		return coupon;
 	}
  
 }

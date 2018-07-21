@@ -2,52 +2,52 @@ package com.derzhavets.kuponim.services;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.derzhavets.kuponim.dao.CustomerRepository;
-import com.derzhavets.kuponim.entities.Customer;
+import com.derzhavets.kuponim.dao.CouponDao;
+import com.derzhavets.kuponim.dao.CustomerDao;
+import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.helpers.ClientType;
+import com.derzhavets.kuponim.helpers.CouponType;
+import com.derzhavets.kuponim.login.Client;
 
-@Service
 public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
-	private CustomerRepository customerDao;
+	private CouponDao couponDao;
+	
+	@Autowired
+	private CustomerDao customerDao;
+	
 	
 	/* (non-Javadoc)
-	 * @see com.derzhavets.kuponim.services.CustomerService#getAll()
+	 * @see com.derzhavets.kuponim.services.CustomerService#purchaseCoupon()
 	 */
 	@Override
-	public List<Customer> getAll() {
-		return customerDao.findAll();
+	public Coupon purchaseCoupon(Coupon coupon, Long customerId) {
+		return null;
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.derzhavets.kuponim.services.CustomerService#getById(java.lang.Long)
+	 * @see com.derzhavets.kuponim.services.CustomerService#getAllPurchasedCoupons()
 	 */
 	@Override
-	public Customer getById(Long id) throws EntityNotFoundException {
-		return customerDao.findById(id).orElseThrow(() -> 
-			new EntityNotFoundException("Customer with id " + id + " is not found."));
+	public List<Coupon> getAllPurchasedCoupons() {
+		return null;
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.derzhavets.kuponim.services.CustomerService#save(com.derzhavets.kuponim.entities.Customer)
+	 * @see com.derzhavets.kuponim.services.CustomerService#getAllPurchasedCouponsByType(com.derzhavets.kuponim.helpers.CouponType)
 	 */
 	@Override
-	public Customer save(Customer customer) {
-		return customerDao.save(customer);
+	public List<Coupon> getAllPurchasedCouponsByType(CouponType type) {
+		return null;
+	}
+
+	@Override
+	public Client login(String name, String password, ClientType clientType) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.derzhavets.kuponim.services.CustomerService#delete(java.lang.Long)
-	 */
-	@Override
-	public Customer delete(Long id) throws EntityNotFoundException {
-		Customer customer = getById(id);
-		customerDao.delete(customer);
-		return customer;
-	}
 }

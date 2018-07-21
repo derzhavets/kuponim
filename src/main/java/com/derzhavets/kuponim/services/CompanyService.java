@@ -2,17 +2,23 @@ package com.derzhavets.kuponim.services;
 
 import java.util.List;
 
-import com.derzhavets.kuponim.entities.Company;
+import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
+import com.derzhavets.kuponim.login.Client;
 
-public interface CompanyService {
+public interface CompanyService extends Client {
 
-	List<Company> getAll();
+	Coupon removeCoupon(Coupon coupon);
+		
+	Coupon updateCoupon(Coupon coupon);
 	
-	Company save(Company company);
+	Coupon getCoupon(Long id);
+	
+	List<Coupon> getAllCoupons(Long companyId);
+	
+	List<Coupon> getCouponsByType(Long companyId, CouponType type);
 
-	Company getById(Long id) throws EntityNotFoundException;
-
-	Company delete(Long id) throws EntityNotFoundException;
-
+	Coupon createCoupon(Coupon coupon, Long companyId) throws EntityNotFoundException;
+	
 }

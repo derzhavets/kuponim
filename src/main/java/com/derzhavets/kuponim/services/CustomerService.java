@@ -2,18 +2,16 @@ package com.derzhavets.kuponim.services;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
+import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.helpers.CouponType;
+import com.derzhavets.kuponim.login.Client;
 
-import com.derzhavets.kuponim.entities.Customer;
+public interface CustomerService extends Client {
 
-public interface CustomerService {
+	Coupon purchaseCoupon(Coupon coupon, Long customerId);
 
-	List<Customer> getAll();
+	List<Coupon> getAllPurchasedCoupons();
 
-	Customer getById(Long id) throws EntityNotFoundException;
-
-	Customer save(Customer customer);
-
-	Customer delete(Long id) throws EntityNotFoundException;
+	List<Coupon> getAllPurchasedCouponsByType(CouponType type);
 
 }

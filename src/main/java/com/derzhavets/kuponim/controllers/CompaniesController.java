@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
-import com.derzhavets.kuponim.services.CompanyService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -22,26 +22,26 @@ import com.derzhavets.kuponim.services.CompanyService;
 public class CompaniesController {
 	
 	@Autowired
-	private CompanyService companyService;
+	private CompanyDao companyDao;
 	
 	@GetMapping("/")
 	public List<Company> getAll() {
-		return companyService.getAll();
+		return companyDao.getAll();
 	}
 	
 	@GetMapping("/{id}")
 	public Company getOne(@PathVariable("id") Long id) throws EntityNotFoundException {
-		return companyService.getById(id);
+		return companyDao.getById(id);
 	}
 	
 	@PostMapping("/")
 	public Company save(@RequestBody Company company) {
-		return companyService.save(company);
+		return companyDao.save(company);
 	}
 	
 	@DeleteMapping("/{id}")
 	public Company delete(@PathVariable("id") Long id) throws EntityNotFoundException {
-		return companyService.delete(id);
+		return companyDao.delete(id);
 	}
 
 }

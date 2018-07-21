@@ -1,4 +1,4 @@
-package com.derzhavets.kuponim.dao;
+package com.derzhavets.kuponim.dao.repositories;
 
 import java.util.List;
 

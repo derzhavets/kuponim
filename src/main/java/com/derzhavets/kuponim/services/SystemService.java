@@ -24,20 +24,21 @@ public class SystemService {
 
 		Client client;
 		switch (clientType) {
-		case ADMIN:
-			client = adminService.login(name, password, clientType);
-			break;
-		case COMPANY:
-			client = companyService.login(name, password, clientType);
-			break;
-		case CUSTOMER:
-			client = customerService.login(name, password, clientType);
-			System.err.println("IN SWITCH " + client);
-			break;
-		default:
-			client = null;
+			case ADMIN:
+				client = adminService.login(name, password, clientType);
+				break;
+			case COMPANY:
+				client = companyService.login(name, password, clientType);
+				break;
+			case CUSTOMER:
+				client = customerService.login(name, password, clientType);
+				break;
+			default:
+				client = null;
 		}
 		return client;
 	}
+	
+	
 	
 }

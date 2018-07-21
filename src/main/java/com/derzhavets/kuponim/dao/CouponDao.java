@@ -34,5 +34,10 @@ public class CouponDao {
 		couponRepository.delete(coupon);
 		return coupon;
 	}
+
+
+	public void deleteAll(List<Coupon> coupons) {
+		couponRepository.deleteAll(coupons);
+	}
  
 }

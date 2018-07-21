@@ -13,7 +13,7 @@ public interface CompanyService extends Client {
 		
 	Coupon updateCoupon(Coupon coupon);
 	
-	Coupon getCoupon(Long id);
+	Coupon getCoupon(Long id) throws EntityNotFoundException;
 	
 	List<Coupon> getAllCoupons(Long companyId);
 	

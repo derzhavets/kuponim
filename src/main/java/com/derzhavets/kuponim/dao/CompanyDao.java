@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.derzhavets.kuponim.dao.repositories.CompanyRepository;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.UserNotFoundException;
 
 @Service
 public class CompanyDao {
@@ -35,6 +36,12 @@ public class CompanyDao {
 		Company company = getById(id);
 		companyRepository.delete(company);
 		return company;
+	}
+	
+	public void checkCompanyUser(String name, String password) throws UserNotFoundException {
+		List<Company> companies = companyRepository.findByNameAndPassword(name, password);
+		if (companies.isEmpty()) 
+			throw new UserNotFoundException("Company name or password is incorrect.");
 	}
 
 }

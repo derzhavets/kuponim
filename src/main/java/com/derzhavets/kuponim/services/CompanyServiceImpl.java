@@ -12,6 +12,7 @@ import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 @Service
@@ -24,9 +25,10 @@ public class CompanyServiceImpl implements CompanyService {
 	private CouponDao couponDao;
 
 	@Override
-	public Client login(String name, String password, ClientType clientType) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client login(String name, String password, ClientType clientType) 
+			throws UserNotFoundException {
+		companyDao.checkCompanyUser(name, password);
+		return this;
 	}
 
 	@Override
@@ -52,9 +54,8 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public Coupon getCoupon(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Coupon getCoupon(Long id) throws EntityNotFoundException {
+		return couponDao.getById(id);
 	}
 
 	@Override
@@ -65,7 +66,6 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Coupon> getCouponsByType(Long companyId, CouponType type) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

@@ -3,14 +3,17 @@ package com.derzhavets.kuponim.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.CouponType;
+import com.derzhavets.kuponim.helpers.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
@@ -19,6 +22,12 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerDao customerDao;
 	
+	@Override
+	public Client login(String name, String password, ClientType clientType) 
+			throws UserNotFoundException {
+		customerDao.checkCustomerUser(name, password);
+		return this;
+	}
 	
 	/* (non-Javadoc)
 	 * @see com.derzhavets.kuponim.services.CustomerService#purchaseCoupon()
@@ -33,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
 	 */
 	@Override
 	public List<Coupon> getAllPurchasedCoupons() {
-		return null;
+		return couponDao.getAll();
 	}
 	
 	/* (non-Javadoc)
@@ -44,10 +53,4 @@ public class CustomerServiceImpl implements CustomerService {
 		return null;
 	}
 
-	@Override
-	public Client login(String name, String password, ClientType clientType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

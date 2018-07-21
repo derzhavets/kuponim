@@ -11,6 +11,7 @@ import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Customer;
 import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 @Service
@@ -21,6 +22,15 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private CustomerDao customerDao;
+	
+
+	@Override
+	public Client login(String name, String password, ClientType clientType) throws UserNotFoundException {
+		if (name == "admin" && password == "1234") 
+			return this;
+		else 
+			throw new UserNotFoundException("Admin username or password incorrect.");
+	}
 	
 	/* (non-Javadoc)
 	 * @see com.derzhavets.kuponim.services.AdminService#createCompany(com.derzhavets.kuponim.entities.Company)
@@ -102,10 +112,4 @@ public class AdminServiceImpl implements AdminService {
 		return customerDao.getAll();
 	}
 
-	@Override
-	public Client login(String name, String password, ClientType clientType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

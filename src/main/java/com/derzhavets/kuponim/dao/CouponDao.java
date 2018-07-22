@@ -36,13 +36,13 @@ public class CouponDao {
 		return coupon;
 	}
 
+	public List<Coupon> getExpiredFrom(LocalDate date) {
+		return couponRepository.getExpiredFrom(date);
+	}
 
 	public void deleteAll(List<Coupon> coupons) {
 		couponRepository.deleteAll(coupons);
 	}
 	
-	public List<Coupon> getExpiredFrom(LocalDate date) {
-		return couponRepository.getExpiredFrom(date);
-	}
  
 }

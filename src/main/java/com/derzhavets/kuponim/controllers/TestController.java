@@ -15,6 +15,7 @@ import com.derzhavets.kuponim.dao.repositories.CouponRepository;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.helpers.ClientType;
+import com.derzhavets.kuponim.helpers.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.UserNotFoundException;
 import com.derzhavets.kuponim.services.AdminService;
@@ -39,18 +40,26 @@ public class TestController {
 	@Autowired
 	private SystemService systemService;
 	
+	@Autowired
+	private CustomerService customerService;
+	
 	@GetMapping("/command")
 	public void test() {
 		Coupon coupon = couponRepo.findById(37L).get();
 		Company company = companyRepo.findById(6L).get();
 		
-//		coupon.setCompany(company);
-//		couponRepo.save(coupon);
-//		company.getCoupons().add(coupon);
-//		companyRepo.save(company);
+		coupon.setCompany(company);
+		couponRepo.save(coupon);
+		company.getCoupons().add(coupon);
+		companyRepo.save(company);
 		
 		System.out.println("COMPANY: " + company);
 		System.out.println("COUPON: " + coupon );
+	}
+	
+	@GetMapping("/buy-coupon")
+	public Coupon buy() throws EntityNotFoundException, CouponTypeNotAllowedException {
+		return customerService.purchaseCoupon(1L, 69L);
 	}
 	
 	@GetMapping("/login-admin")
@@ -68,7 +77,7 @@ public class TestController {
 	@GetMapping("/login-customer")
 	public List<Coupon> testCustomerLogin() throws EntityNotFoundException, UserNotFoundException {
 		CustomerService customer = (CustomerService) systemService.login("Michael", "pass", ClientType.CUSTOMER);
-		return customer.getAllPurchasedCoupons();
+		return customer.getAllPurchasedCoupons(1L);
 	}
 	
 	@GetMapping("/task")

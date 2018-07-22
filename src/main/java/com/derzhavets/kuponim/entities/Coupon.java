@@ -147,5 +147,15 @@ public class Coupon {
 				+ ", type=" + type + ", message=" + message + ", price=" + price + ", imageUrl=" + imageUrl
 				+ ", company=" + company + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return type.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return ((Coupon)obj).getType().equals(type);
+	}
 	
 }

@@ -25,7 +25,9 @@ public class AdminServiceImpl implements AdminService {
 	
 
 	@Override
-	public Client login(String name, String password, ClientType clientType) throws UserNotFoundException {
+	public Client login(String name, String password, ClientType clientType) 
+			throws UserNotFoundException {
+		
 		if (name == "admin" && password == "1234") 
 			return this;
 		else 

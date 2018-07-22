@@ -17,5 +17,5 @@ public interface CouponRepository extends JpaRepository<Coupon, Long>{
 	
 	@Query("SELECT c from Coupon c where c.endDate < :date")
 	List<Coupon> getExpiredFrom(@Param("date") LocalDate date);
-
+	
 }

@@ -1,6 +1,7 @@
 package com.derzhavets.kuponim.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,9 +43,8 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public Coupon removeCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
-		return null;
+	public Coupon removeCoupon(Long couponId) throws EntityNotFoundException {
+		return couponDao.delete(couponId);
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public Coupon getCoupon(Long id) throws EntityNotFoundException {
-		return couponDao.getById(id);
+	public Coupon getCoupon(Long couponId) throws EntityNotFoundException {
+		return couponDao.getById(couponId);
 	}
 
 	@Override
@@ -63,8 +63,11 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Coupon> getCouponsByType(Long companyId, CouponType type) {
-		return null;
+	public List<Coupon> getCouponsByType(Long companyId, CouponType type) 
+			throws EntityNotFoundException {
+		return companyDao.getById(companyId).getCoupons().stream()
+				.filter(c -> c.getType().equals(type))
+				.collect(Collectors.toList());
 	}
 	
 }

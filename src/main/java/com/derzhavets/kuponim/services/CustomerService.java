@@ -4,14 +4,16 @@ import java.util.List;
 
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.helpers.CouponType;
+import com.derzhavets.kuponim.helpers.CouponTypeNotAllowedException;
+import com.derzhavets.kuponim.helpers.EntityNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 public interface CustomerService extends Client {
 
-	Coupon purchaseCoupon(Coupon coupon, Long customerId);
+	Coupon purchaseCoupon(Long customerId, Long couponId) throws EntityNotFoundException, CouponTypeNotAllowedException;
 
-	List<Coupon> getAllPurchasedCoupons();
+	List<Coupon> getAllPurchasedCoupons(Long customerId);
 
-	List<Coupon> getAllPurchasedCouponsByType(CouponType type);
+	List<Coupon> getAllPurchasedCouponsByType(Long customerId, CouponType type);
 
 }

@@ -9,7 +9,7 @@ import com.derzhavets.kuponim.login.Client;
 
 public interface CompanyService extends Client {
 
-	Coupon removeCoupon(Coupon coupon);
+	Coupon removeCoupon(Long couponId) throws EntityNotFoundException;
 		
 	Coupon updateCoupon(Coupon coupon);
 	
@@ -17,7 +17,7 @@ public interface CompanyService extends Client {
 	
 	List<Coupon> getAllCoupons(Long companyId) throws EntityNotFoundException;
 	
-	List<Coupon> getCouponsByType(Long companyId, CouponType type);
+	List<Coupon> getCouponsByType(Long companyId, CouponType type) throws EntityNotFoundException;
 
 	Coupon createCoupon(Coupon coupon, Long companyId) throws EntityNotFoundException;
 	

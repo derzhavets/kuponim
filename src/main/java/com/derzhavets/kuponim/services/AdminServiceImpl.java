@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
 	 * @see com.derzhavets.kuponim.services.AdminService#createCompany(com.derzhavets.kuponim.entities.Company)
 	 */
 	@Override
-	public Company createCompany(Company company) {
+	public Company saveCompany(Company company) {
 		return companyDao.save(company);
 	}
 	
@@ -46,14 +46,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Company removeCompany(Long id) throws EntityNotFoundException {
 		return companyDao.delete(id);
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.derzhavets.kuponim.services.AdminService#updateCompany(com.derzhavets.kuponim.entities.Company)
-	 */
-	@Override
-	public Company updateCompany(Company company) {
-		return companyDao.save(company);
 	}
 	
 	/* (non-Javadoc)
@@ -76,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
 	 * @see com.derzhavets.kuponim.services.AdminService#createCustomer(com.derzhavets.kuponim.entities.Customer)
 	 */
 	@Override
-	public Customer createCustomer(Customer customer) {
+	public Customer saveCustomer(Customer customer) {
 		return customerDao.save(customer);
 	}
 	
@@ -86,14 +78,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Customer removeCustomer(Long id) {
 		return customerDao.delete(id);
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.derzhavets.kuponim.services.AdminService#updateCustomer(com.derzhavets.kuponim.entities.Customer)
-	 */
-	@Override
-	public Customer updateCustomer(Customer customer) {
-		return customerDao.save(customer);
 	}
 	
 	/* (non-Javadoc)

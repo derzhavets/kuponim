@@ -30,22 +30,5 @@ public class KuponimApplication {
 	    bean.setOrder(0);
 	    return bean;
 	}
-	
-//	@Bean
-//    public TaskExecutor threadPoolTaskExecutor() {
-//        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-//        executor.setCorePoolSize(4);
-//        executor.setMaxPoolSize(4);
-//        executor.setThreadNamePrefix("default_task_executor_thread");
-//        executor.initialize();
-//        return executor;
-//    }
-//	
-//	@Bean
-//	public CommandLineRunner startCouponCheck(TaskExecutor executor) {
-//		return args -> {
-//			executor.execute(new CouponCheckThread());
-//		};
-//	}
 
 }

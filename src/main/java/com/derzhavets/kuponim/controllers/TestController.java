@@ -1,5 +1,6 @@
 package com.derzhavets.kuponim.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.dao.repositories.CompanyRepository;
 import com.derzhavets.kuponim.dao.repositories.CouponRepository;
 import com.derzhavets.kuponim.entities.Company;
@@ -30,6 +32,9 @@ public class TestController {
 	
 	@Autowired
 	private CouponRepository couponRepo;
+	
+	@Autowired
+	private CouponDao coupoDao;
 	
 	@Autowired
 	private SystemService systemService;
@@ -64,6 +69,11 @@ public class TestController {
 	public List<Coupon> testCustomerLogin() throws EntityNotFoundException, UserNotFoundException {
 		CustomerService customer = (CustomerService) systemService.login("Michael", "pass", ClientType.CUSTOMER);
 		return customer.getAllPurchasedCoupons();
+	}
+	
+	@GetMapping("/task")
+	public List<Coupon> getExpired() {
+		return coupoDao.getExpiredFrom(LocalDate.now());
 	}
 	
 }

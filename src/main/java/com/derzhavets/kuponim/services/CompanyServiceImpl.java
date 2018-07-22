@@ -49,8 +49,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public Coupon updateCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
-		return null;
+		return couponDao.save(coupon);
 	}
 
 	@Override
@@ -59,9 +58,8 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Coupon> getAllCoupons(Long companyId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Coupon> getAllCoupons(Long companyId) throws EntityNotFoundException {
+		return (List<Coupon>) companyDao.getById(companyId).getCoupons();
 	}
 
 	@Override

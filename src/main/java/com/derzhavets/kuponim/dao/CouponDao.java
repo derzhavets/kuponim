@@ -1,5 +1,6 @@
 package com.derzhavets.kuponim.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,10 @@ public class CouponDao {
 
 	public void deleteAll(List<Coupon> coupons) {
 		couponRepository.deleteAll(coupons);
+	}
+	
+	public List<Coupon> getExpiredFrom(LocalDate date) {
+		return couponRepository.getExpiredFrom(date);
 	}
  
 }

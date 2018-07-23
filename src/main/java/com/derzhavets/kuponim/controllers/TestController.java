@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.session.Session;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,9 +16,11 @@ import com.derzhavets.kuponim.dao.repositories.CompanyRepository;
 import com.derzhavets.kuponim.dao.repositories.CouponRepository;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.entities.Customer;
 import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.SessionNotFoundException;
 import com.derzhavets.kuponim.helpers.UserNotFoundException;
 import com.derzhavets.kuponim.services.AdminService;
 import com.derzhavets.kuponim.services.CompanyService;
@@ -83,6 +87,19 @@ public class TestController {
 	@GetMapping("/task")
 	public List<Coupon> getExpired() {
 		return coupoDao.getExpiredFrom(LocalDate.now());
+	}
+	
+	@GetMapping("/login")
+	public void testSessions() throws UserNotFoundException {
+		Session session = systemService.login("admin", "1234", ClientType.ADMIN);
+		System.err.println(session.getId());
+	}
+	
+	@GetMapping("/get-service/{id}")
+	public Customer getClient(@PathVariable("id") String sessionId) 
+			throws SessionNotFoundException {
+		AdminService service = (AdminService) systemService.getClient(sessionId);
+		return service.getCustomer(1L);
 	}
 	
 }

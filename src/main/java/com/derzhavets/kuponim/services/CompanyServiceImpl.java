@@ -10,7 +10,6 @@ import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
-import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.UserNotFoundException;
@@ -26,7 +25,7 @@ public class CompanyServiceImpl implements CompanyService {
 	private CouponDao couponDao;
 
 	@Override
-	public Client login(String name, String password, ClientType clientType) 
+	public Client login(String name, String password) 
 			throws UserNotFoundException {
 		companyDao.checkCompanyUser(name, password);
 		return this;

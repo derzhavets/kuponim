@@ -11,7 +11,6 @@ import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.helpers.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
@@ -28,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerDao customerDao;
 	
 	@Override
-	public Client login(String name, String password, ClientType clientType) 
+	public Client login(String name, String password) 
 			throws UserNotFoundException {
 		customerDao.checkCustomerUser(name, password);
 		return this;

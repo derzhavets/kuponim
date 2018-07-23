@@ -9,7 +9,6 @@ import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
@@ -25,7 +24,7 @@ public class AdminServiceImpl implements AdminService {
 	
 
 	@Override
-	public Client login(String name, String password, ClientType clientType) 
+	public Client login(String name, String password) 
 			throws UserNotFoundException {
 		
 		if (name == "admin" && password == "1234") 

@@ -3,11 +3,11 @@ package com.derzhavets.kuponim.controllers;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.session.Session;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,13 +17,11 @@ import com.derzhavets.kuponim.dao.repositories.CouponRepository;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.SessionNotFoundException;
 import com.derzhavets.kuponim.helpers.UserNotFoundException;
 import com.derzhavets.kuponim.services.AdminService;
-import com.derzhavets.kuponim.services.CompanyService;
 import com.derzhavets.kuponim.services.CustomerService;
 import com.derzhavets.kuponim.services.SystemService;
 
@@ -66,40 +64,31 @@ public class TestController {
 		return customerService.purchaseCoupon(1L, 69L);
 	}
 	
-	@GetMapping("/login-admin")
-	public Company testAdminLogin() throws EntityNotFoundException, UserNotFoundException {
-		AdminService admin = (AdminService) systemService.login("admin", "1234", ClientType.ADMIN);
-		return admin.getCompany(1L);
-	}
-
-	@GetMapping("/login-company")
-	public Coupon testCompanyLogin() throws EntityNotFoundException, UserNotFoundException {
-		CompanyService company = (CompanyService) systemService.login("pukan", "egaswe", ClientType.COMPANY);
-		return company.getCoupon(55L);
-	}
-	
-	@GetMapping("/login-customer")
-	public List<Coupon> testCustomerLogin() throws EntityNotFoundException, UserNotFoundException {
-		CustomerService customer = (CustomerService) systemService.login("Michael", "pass", ClientType.CUSTOMER);
-		return customer.getAllPurchasedCoupons(1L);
-	}
-	
 	@GetMapping("/task")
 	public List<Coupon> getExpired() {
 		return coupoDao.getExpiredFrom(LocalDate.now());
 	}
-	
+	 
 	@GetMapping("/login")
-	public void testSessions() throws UserNotFoundException {
-		Session session = systemService.login("admin", "1234", ClientType.ADMIN);
-		System.err.println(session.getId());
+	public String setSession(HttpServletRequest request) throws UserNotFoundException {
+		return systemService.login(request);
 	}
 	
-	@GetMapping("/get-service/{id}")
-	public Customer getClient(@PathVariable("id") String sessionId) 
-			throws SessionNotFoundException {
-		AdminService service = (AdminService) systemService.getClient(sessionId);
+	@GetMapping("/get-service")
+	public Customer getNewService(HttpServletRequest request) throws SessionNotFoundException {
+		AdminService service = (AdminService) systemService.getClient(request);
 		return service.getCustomer(1L);
+	}
+	
+	@GetMapping("/get-session")
+	public String getCustomer(HttpServletRequest request) {
+		String id = request.getSession(false).getId();
+		return id;
+	}
+	
+	@GetMapping("/get-cookie")
+	public String getCookie(HttpServletRequest request) {
+		return request.getHeader("Cookie");
 	}
 	
 }

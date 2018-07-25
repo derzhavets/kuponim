@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.session.ExpiringSession;
-import org.springframework.session.MapSessionRepository;
-import org.springframework.session.Session;
-import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.helpers.ClientType;
@@ -22,8 +20,7 @@ public class SystemService {
 	
 	private final Map<ClientType, Client> clients = new HashMap<>();
 	
-	private final SessionRepository<ExpiringSession> sessionRepository = 
-			new MapSessionRepository();
+	private final Map<String, HttpSession> sessionsMap = new HashMap<>();
 	
 	@Autowired
 	private AdminService adminService;
@@ -34,28 +31,22 @@ public class SystemService {
 	@Autowired
 	private CustomerService customerService;
 	
-	public Session login(String name, String password, ClientType clientType) 
-			throws UserNotFoundException {
-		Client client = clients.get(clientType).login(name, password);
-		Session newSession = createSession(client);
-		return newSession;
+	public String login(HttpServletRequest request) throws UserNotFoundException {
+		clients.get(ClientType.ADMIN).login("admin", "1234");
+		if (request.getSession() != null) 
+			request.getSession().invalidate();
+		HttpSession session = request.getSession();
+		sessionsMap.put(session.getId(), session); 
+		return session.getId();
 	}
 	
-	
-	public Client getClient(String sessionId) throws SessionNotFoundException {
-		ExpiringSession session = sessionRepository.getSession(sessionId);
-		if (session == null)
+	public Client getClient(HttpServletRequest request) throws SessionNotFoundException {
+		HttpSession session = request.getSession(false);
+		if (session == null || sessionsMap.get(session.getId()) == null) 
 			throw new SessionNotFoundException(
-					"Session is expired or session token is corrupted. Please login again.");
-		return session.getAttribute("client");
-	}
-	
-	private Session createSession(Client client) {
-		ExpiringSession session = sessionRepository.createSession();
-		session.setAttribute("client", client);
-		sessionRepository.save(session);
-		return session;
-		
+					"Session is expired or session token is invalid. Please login again.");
+		ClientType type2 = ClientType.ADMIN;
+		return clients.get(type2);
 	}
 	
 	@PostConstruct

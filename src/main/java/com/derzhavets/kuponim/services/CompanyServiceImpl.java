@@ -25,9 +25,9 @@ public class CompanyServiceImpl implements CompanyService {
 	private CouponDao couponDao;
 
 	@Override
-	public Client login(String name, String password) 
+	public Client login(String email, String password) 
 			throws UserNotFoundException {
-		companyDao.checkCompanyUser(name, password);
+		companyDao.checkCompanyUser(email, password);
 		return this;
 	}
 

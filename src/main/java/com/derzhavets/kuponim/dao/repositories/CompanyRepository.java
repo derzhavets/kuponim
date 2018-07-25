@@ -12,6 +12,6 @@ public interface CompanyRepository extends CrudRepository<Company, Long>{
 	
 	List<Company> findAll();
 	
-	List<Company> findByNameAndPassword(String name, String password);
+	List<Company> findByEmailAndPassword(String email, String password);
 	
 }

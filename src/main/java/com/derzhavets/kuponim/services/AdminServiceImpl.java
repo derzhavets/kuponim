@@ -24,13 +24,11 @@ public class AdminServiceImpl implements AdminService {
 	
 
 	@Override
-	public Client login(String name, String password) 
-			throws UserNotFoundException {
-		
-		if (name == "admin" && password == "1234") 
-			return this;
-		else 
+	public Client login(String email, String password) 
+		throws UserNotFoundException {
+		if (!email.equals("admin") || !password.equals("1234"))
 			throw new UserNotFoundException("Admin username or password incorrect.");
+		return this;
 	}
 	
 	/* (non-Javadoc)

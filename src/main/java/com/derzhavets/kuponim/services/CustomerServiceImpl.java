@@ -27,9 +27,9 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerDao customerDao;
 	
 	@Override
-	public Client login(String name, String password) 
+	public Client login(String email, String password) 
 			throws UserNotFoundException {
-		customerDao.checkCustomerUser(name, password);
+		customerDao.checkCustomerUser(email, password);
 		return this;
 	}
 	

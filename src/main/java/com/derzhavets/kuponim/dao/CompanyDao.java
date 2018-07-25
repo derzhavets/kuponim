@@ -38,10 +38,10 @@ public class CompanyDao {
 		return company;
 	}
 	
-	public void checkCompanyUser(String name, String password) throws UserNotFoundException {
-		List<Company> companies = companyRepository.findByNameAndPassword(name, password);
+	public void checkCompanyUser(String email, String password) throws UserNotFoundException {
+		List<Company> companies = companyRepository.findByEmailAndPassword(email, password);
 		if (companies.isEmpty()) 
-			throw new UserNotFoundException("Company name or password is incorrect.");
+			throw new UserNotFoundException("Company email or password is incorrect.");
 	}
 
 }

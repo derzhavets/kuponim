@@ -19,11 +19,14 @@ public class Customer {
 	@Column(name = "CUSTOMER_ID")
 	private Long id;
 	
-	@Column(name = "NAME")
-	private String name;
+	@Column(name = "EMAIL")
+	private String email;
 	
 	@Column(name = "PASSWORD")
 	private String password;
+
+	@Column(name = "NAME")
+	private String name;
 	
 	@ManyToMany
 	@JoinTable(name = "CUSTOMER_COUPON", 

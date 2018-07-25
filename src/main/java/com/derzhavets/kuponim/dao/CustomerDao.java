@@ -48,9 +48,9 @@ public class CustomerDao {
 		return customer;
 	}
 
-	public void checkCustomerUser(String name, String password) throws UserNotFoundException {
-		List<Customer> customers = customerRepo.findByNameAndPassword(name, password);
+	public void checkCustomerUser(String email, String password) throws UserNotFoundException {
+		List<Customer> customers = customerRepo.findByEmailAndPassword(email, password);
 		if (customers.isEmpty()) 
-			throw new UserNotFoundException("Customer name or password incorrect");
+			throw new UserNotFoundException("Customer email or password incorrect");
 	}
 }

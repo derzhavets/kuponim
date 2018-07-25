@@ -34,7 +34,7 @@ public class SystemService {
 	public String login(HttpServletRequest request) throws UserNotFoundException {
 		ClientType type = ClientType.valueOf(request.getParameter("client-type"));
 		clients.get(type).login(
-				request.getParameter("username"), request.getParameter("password"));
+				request.getParameter("email"), request.getParameter("password"));
 		if (request.getSession() != null) 
 			request.getSession().invalidate();
 		HttpSession session = request.getSession();

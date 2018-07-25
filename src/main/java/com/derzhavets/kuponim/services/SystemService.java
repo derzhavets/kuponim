@@ -32,10 +32,13 @@ public class SystemService {
 	private CustomerService customerService;
 	
 	public String login(HttpServletRequest request) throws UserNotFoundException {
-		clients.get(ClientType.ADMIN).login("admin", "1234");
+		ClientType type = ClientType.valueOf(request.getParameter("client-type"));
+		clients.get(type).login(
+				request.getParameter("username"), request.getParameter("password"));
 		if (request.getSession() != null) 
 			request.getSession().invalidate();
 		HttpSession session = request.getSession();
+		session.setAttribute("client-type", ClientType.ADMIN);
 		sessionsMap.put(session.getId(), session); 
 		return session.getId();
 	}
@@ -45,8 +48,8 @@ public class SystemService {
 		if (session == null || sessionsMap.get(session.getId()) == null) 
 			throw new SessionNotFoundException(
 					"Session is expired or session token is invalid. Please login again.");
-		ClientType type2 = ClientType.ADMIN;
-		return clients.get(type2);
+		ClientType type = (ClientType) session.getAttribute("client-type");
+		return clients.get(type);
 	}
 	
 	@PostConstruct

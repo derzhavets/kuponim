@@ -19,11 +19,7 @@ public class LoginController {
 	private SystemService systemService;
 	
 	@GetMapping("/")
-	public ResponseEntity<String> login(HttpServletRequest request) {
-		try {
-			return ResponseEntity.ok().body(systemService.login(request));			
-		} catch (UserNotFoundException e) {
-			return ResponseEntity.status(e.getResponseStatus()).body(e.getMessage());
-		}
+	public ResponseEntity<String> login(HttpServletRequest request) throws UserNotFoundException {
+		return ResponseEntity.ok().body(systemService.login(request));			
 	}
 }

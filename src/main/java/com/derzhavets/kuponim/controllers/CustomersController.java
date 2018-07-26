@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.derzhavets.kuponim.helpers.CouponType;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.KuponimApplicationException;
+import com.derzhavets.kuponim.helpers.exceptions.SessionNotFoundException;
 import com.derzhavets.kuponim.services.CustomerService;
 import com.derzhavets.kuponim.services.SystemService;
 
@@ -22,40 +23,20 @@ public class CustomersController {
 	private SystemService systemService;
 	
 	@GetMapping("/purchase-coupon/{id}")
-	public ResponseEntity<?> purchaseCoupon(@PathVariable("id") Long couponId, 
-			HttpServletRequest request) {
-		try {
+	public ResponseEntity<?> purchaseCoupon(@PathVariable("id") Long couponId, HttpServletRequest request) 
+					throws KuponimApplicationException {
 			CustomerService service = (CustomerService) systemService.getClient(request);
 			return ResponseEntity.ok().body(
 					service.purchaseCoupon(Long.parseLong(request.getParameter("customer_id")), couponId));
-		} catch (KuponimApplicationException e) {
-			return ResponseEntity.status(e.getResponseStatus()).body(e.getMessage());
-		}
 	}
 	
 	@GetMapping("/get-coupons/{id}")
 	public ResponseEntity<?> getPurchasedCoupons(@PathVariable("id") Long customerId,
-				HttpServletRequest request) {
-		try {
+				HttpServletRequest request) throws SessionNotFoundException, EntityNotFoundException {
 			CustomerService service = (CustomerService) systemService.getClient(request);
 			return ResponseEntity.ok().body(
 					service.getAllPurchasedCoupons(customerId));
-		} catch (KuponimApplicationException e) {
-			return ResponseEntity.status(e.getResponseStatus()).body(e.getMessage());
-		}
 	}
-	
-	@GetMapping("/get-coupons-by-type/{id}")
-	public ResponseEntity<?> getPurchasedCouponsByType(@PathVariable("id") Long customerId,
-			HttpServletRequest request) {
-		try {
-			CustomerService service = (CustomerService) systemService.getClient(request);
-			return ResponseEntity.ok().body(
-					service.getAllPurchasedCouponsByType(customerId, 
-							CouponType.valueOf(request.getParameter("coupon-type"))));
-		} catch (KuponimApplicationException e) {
-			return ResponseEntity.status(e.getResponseStatus()).body(e.getMessage());
-		}
-	}
+
 	
 }

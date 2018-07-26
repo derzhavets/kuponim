@@ -23,6 +23,6 @@ public interface AdminService extends Client {
 
 	Customer getCustomer(Long id) throws EntityNotFoundException;
 
-	List<Customer> getAllCustomers();
+	List<Customer> getAllCustomers(); 
 
 }

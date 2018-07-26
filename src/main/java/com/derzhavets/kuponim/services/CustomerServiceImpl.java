@@ -41,10 +41,12 @@ public class CustomerServiceImpl implements CustomerService {
 		if (!customer.getCoupons().add(coupon))
 			throw new CouponTypeNotAllowedException("Coupon of type " + coupon.getType() +
 					" already purchased for customer id=" + customerId);
+		updateCouponQuantity(coupon);
 		customerDao.save(customer);
 		return coupon;
 	}
 	
+
 	/* (non-Javadoc)
 	 * @see com.derzhavets.kuponim.services.CustomerService#getAllPurchasedCoupons()
 	 */
@@ -63,4 +65,13 @@ public class CustomerServiceImpl implements CustomerService {
 				.collect(Collectors.toList());
 	}
 
+	private void updateCouponQuantity(Coupon coupon) {
+		coupon.setAmount(coupon.getAmount() - 1);
+		if (coupon.getAmount() == 0) {
+			couponDao.delete(coupon.getId());
+		} else {
+			couponDao.save(coupon);
+		}
+	}
+	
 }

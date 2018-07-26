@@ -62,12 +62,14 @@ public class Company {
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	public Collection<Coupon> getCoupons() {
 		return coupons;
 	}
+	
 	public void setCoupons(Set<Coupon> coupons) {
 		this.coupons = coupons;
 	}

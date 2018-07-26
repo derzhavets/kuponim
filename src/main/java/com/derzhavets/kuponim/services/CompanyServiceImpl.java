@@ -1,5 +1,6 @@
 package com.derzhavets.kuponim.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Coupon> getAllCoupons(Long companyId) throws EntityNotFoundException {
-		return (List<Coupon>) companyDao.getById(companyId).getCoupons();
+		return new ArrayList<Coupon>(companyDao.getById(companyId).getCoupons());
 	}
 
 	@Override

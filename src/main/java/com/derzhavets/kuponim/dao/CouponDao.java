@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.dao.repositories.CouponRepository;
 import com.derzhavets.kuponim.entities.Coupon;
-import com.derzhavets.kuponim.helpers.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 
 @Service
 public class CouponDao {

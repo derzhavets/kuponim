@@ -17,10 +17,10 @@ import com.derzhavets.kuponim.dao.repositories.CouponRepository;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.helpers.CouponTypeNotAllowedException;
-import com.derzhavets.kuponim.helpers.EntityNotFoundException;
-import com.derzhavets.kuponim.helpers.SessionNotFoundException;
-import com.derzhavets.kuponim.helpers.UserNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.CouponTypeNotAllowedException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.SessionNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.services.AdminService;
 import com.derzhavets.kuponim.services.CustomerService;
 import com.derzhavets.kuponim.services.SystemService;
@@ -75,7 +75,7 @@ public class TestController {
 	}
 	
 	@GetMapping("/get-service")
-	public Customer getNewService(HttpServletRequest request) throws SessionNotFoundException {
+	public Customer getNewService(HttpServletRequest request) throws SessionNotFoundException, EntityNotFoundException {
 		AdminService service = (AdminService) systemService.getClient(request);
 		return service.getCustomer(1L);
 	}

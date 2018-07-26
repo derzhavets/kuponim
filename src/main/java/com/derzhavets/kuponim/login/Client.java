@@ -1,6 +1,6 @@
 package com.derzhavets.kuponim.login;
 
-import com.derzhavets.kuponim.helpers.UserNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 
 public interface Client {
 	

@@ -9,8 +9,8 @@ import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.helpers.EntityNotFoundException;
-import com.derzhavets.kuponim.helpers.UserNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 @Service
@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
 	 * @see com.derzhavets.kuponim.services.AdminService#removeCustomer(java.lang.Long)
 	 */
 	@Override
-	public Customer removeCustomer(Long id) {
+	public Customer removeCustomer(Long id) throws EntityNotFoundException {
 		return customerDao.delete(id);
 	}
 	
@@ -83,7 +83,7 @@ public class AdminServiceImpl implements AdminService {
 	 * @see com.derzhavets.kuponim.services.AdminService#getCustomer(java.lang.Long)
 	 */
 	@Override
-	public Customer getCustomer(Long id) {
+	public Customer getCustomer(Long id) throws EntityNotFoundException {
 		return customerDao.getById(id);
 	}
 	

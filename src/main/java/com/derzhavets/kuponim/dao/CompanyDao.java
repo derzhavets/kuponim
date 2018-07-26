@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.dao.repositories.CompanyRepository;
 import com.derzhavets.kuponim.entities.Company;
-import com.derzhavets.kuponim.helpers.EntityNotFoundException;
-import com.derzhavets.kuponim.helpers.UserNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 
 @Service
 public class CompanyDao {

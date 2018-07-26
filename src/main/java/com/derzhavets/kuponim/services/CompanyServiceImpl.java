@@ -11,8 +11,8 @@ import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.helpers.CouponType;
-import com.derzhavets.kuponim.helpers.EntityNotFoundException;
-import com.derzhavets.kuponim.helpers.UserNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 @Service

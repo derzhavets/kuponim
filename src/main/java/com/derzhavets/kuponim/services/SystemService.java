@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.helpers.ClientType;
-import com.derzhavets.kuponim.helpers.SessionNotFoundException;
-import com.derzhavets.kuponim.helpers.UserNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.SessionNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 @Service
@@ -38,7 +38,7 @@ public class SystemService {
 		if (request.getSession() != null) 
 			request.getSession().invalidate();
 		HttpSession session = request.getSession();
-		session.setAttribute("client-type", ClientType.ADMIN);
+		session.setAttribute("client-type", type);
 		sessionsMap.put(session.getId(), session); 
 		return session.getId();
 	}
@@ -47,7 +47,7 @@ public class SystemService {
 		HttpSession session = request.getSession(false);
 		if (session == null || sessionsMap.get(session.getId()) == null) 
 			throw new SessionNotFoundException(
-					"Session is expired or session token is invalid. Please login again.");
+					"Session expired or session token invalid. Please login again. Please.");
 		ClientType type = (ClientType) session.getAttribute("client-type");
 		return clients.get(type);
 	}

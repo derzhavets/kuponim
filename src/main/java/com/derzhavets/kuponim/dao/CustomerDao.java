@@ -2,14 +2,14 @@ package com.derzhavets.kuponim.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.dao.repositories.CustomerRepository;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.helpers.UserNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 
 @Service
 public class CustomerDao {

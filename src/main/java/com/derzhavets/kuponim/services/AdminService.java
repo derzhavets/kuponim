@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.helpers.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 public interface AdminService extends Client {
@@ -19,9 +19,9 @@ public interface AdminService extends Client {
 
 	Customer saveCustomer(Customer customer);
 
-	Customer removeCustomer(Long id);
+	Customer removeCustomer(Long id) throws EntityNotFoundException;
 
-	Customer getCustomer(Long id);
+	Customer getCustomer(Long id) throws EntityNotFoundException;
 
 	List<Customer> getAllCustomers();
 

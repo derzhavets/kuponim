@@ -12,9 +12,9 @@ import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.entities.Customer;
 import com.derzhavets.kuponim.helpers.CouponType;
-import com.derzhavets.kuponim.helpers.CouponTypeNotAllowedException;
-import com.derzhavets.kuponim.helpers.EntityNotFoundException;
-import com.derzhavets.kuponim.helpers.UserNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.CouponTypeNotAllowedException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 @Service
@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
 	 * @see com.derzhavets.kuponim.services.CustomerService#getAllPurchasedCoupons()
 	 */
 	@Override
-	public List<Coupon> getAllPurchasedCoupons(Long customerId) {
+	public List<Coupon> getAllPurchasedCoupons(Long customerId) throws EntityNotFoundException {
 		return new ArrayList<Coupon>(customerDao.getById(customerId).getCoupons());
 	}
 	
@@ -57,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
 	 * @see com.derzhavets.kuponim.services.CustomerService#getAllPurchasedCouponsByType(com.derzhavets.kuponim.helpers.CouponType)
 	 */
 	@Override
-	public List<Coupon> getAllPurchasedCouponsByType(Long customerId, CouponType type) {
+	public List<Coupon> getAllPurchasedCouponsByType(Long customerId, CouponType type) throws EntityNotFoundException {
 		return getAllPurchasedCoupons(customerId).stream()
 				.filter(c -> c.getType().equals(type))
 				.collect(Collectors.toList());

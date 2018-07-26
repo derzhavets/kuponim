@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.helpers.CouponType;
-import com.derzhavets.kuponim.helpers.EntityNotFoundException;
+import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController

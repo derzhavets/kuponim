@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.exceptions.SessionNotFoundException;
-import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.login.Client;
 
 @Service
@@ -31,7 +30,7 @@ public class SystemService {
 	@Autowired
 	private CustomerService customerService;
 	
-	public String login(HttpServletRequest request) throws UserNotFoundException {
+	public String login(HttpServletRequest request) {
 		ClientType type = ClientType.valueOf(request.getParameter("client-type"));
 		clients.get(type).login(
 				request.getParameter("email"), request.getParameter("password"));

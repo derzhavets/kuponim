@@ -27,50 +27,47 @@ public class AdminController {
 	
 	@PostMapping("/save-company")
 	public ResponseEntity<Company> saveCompany(@RequestBody Company company, HttpServletRequest request) {
-		AdminService service = (AdminService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.saveCompany(company));
+		return ResponseEntity.ok().body(getAdminService(request).saveCompany(company));
 	}
 
-	@GetMapping("/remove-company/{id}")
+
+	@GetMapping("/delete-company/{id}")
 	public ResponseEntity<Company> removeCompany(@PathVariable("id") Long companyId, HttpServletRequest request) {
-		AdminService service = (AdminService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.removeCompany(companyId));
+		return ResponseEntity.ok().body(getAdminService(request).removeCompany(companyId));
 	}
 	
 	@GetMapping("/get-company/{id}")
 	public ResponseEntity<Company> getCompany(@PathVariable("id") Long companyId, HttpServletRequest request) {
-		AdminService service = (AdminService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.getCompany(companyId));
+		return ResponseEntity.ok().body(getAdminService(request).getCompany(companyId));
 	}
 
 	@GetMapping("/get-all-companies")
 	public ResponseEntity<List<Company>> getAllCompanies(HttpServletRequest request) {
-		AdminService service = (AdminService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.getAllCompanies());
+		return ResponseEntity.ok().body(getAdminService(request).getAllCompanies());
 	}
 	
 	@PostMapping("/save-customer")
 	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer, HttpServletRequest request) {
-		AdminService service = (AdminService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.saveCustomer(customer));
+		return ResponseEntity.ok().body(getAdminService(request).saveCustomer(customer));
 	}
 	
 	@GetMapping("/delete-customer/{id}")
 	public ResponseEntity<Customer> removeCustomer(@PathVariable("id") Long customerId, HttpServletRequest request) {
-		AdminService service = (AdminService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.removeCustomer(customerId));
+		return ResponseEntity.ok().body(getAdminService(request).removeCustomer(customerId));
 	}
 
 	@GetMapping("/get-customer/{id}")
 	public ResponseEntity<Customer> getCustomer(@PathVariable("id") Long customerId, HttpServletRequest request) {
-		AdminService service = (AdminService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.getCustomer(customerId));
+		return ResponseEntity.ok().body(getAdminService(request).getCustomer(customerId));
 	}
 	
 	@GetMapping("/get-all-customers")
 	public ResponseEntity<List<Customer>> getAllCustomers(HttpServletRequest request) {
-		AdminService service = (AdminService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.getAllCustomers());
+		return ResponseEntity.ok().body(getAdminService(request).getAllCustomers());
+	}
+	
+	private AdminService getAdminService(HttpServletRequest request) {
+		return (AdminService) systemService.getClient(request);
 	}
 	
 }

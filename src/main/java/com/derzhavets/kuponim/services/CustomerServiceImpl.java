@@ -67,10 +67,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 	private void updateCouponQuantity(Coupon coupon) {
 		coupon.setAmount(coupon.getAmount() - 1);
-		if (coupon.getAmount() == 0) {
-			couponDao.delete(coupon.getId());
-		} else {
+		if (coupon.getAmount() > 0) {
 			couponDao.save(coupon);
+		} else {
+			couponDao.delete(coupon.getId());
 		}
 	}
 	

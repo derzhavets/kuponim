@@ -21,41 +21,43 @@ import com.derzhavets.kuponim.services.SystemService;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/company")
-public class CompaniesController {
+public class CompanyController {
 	
 	@Autowired
 	private SystemService systemService;
 	
 	@PostMapping("/create-coupon")
 	public ResponseEntity<Coupon> createCoupon(@RequestBody Coupon coupon, HttpServletRequest request) {
-		CompanyService service = (CompanyService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.createCoupon(
+		return ResponseEntity.ok().body(getCompanyService(request).createCoupon(
 				coupon, Long.parseLong(request.getParameter("company_id"))));
 	}
 
+
 	@GetMapping("/remove-coupon/{id}")
 	public ResponseEntity<Coupon> removeCoupon(@PathVariable("id") Long couponId, HttpServletRequest request) {
-		CompanyService service = (CompanyService) systemService.getClient(request);
+		CompanyService service = getCompanyService(request);
 		return ResponseEntity.ok().body(service.removeCoupon(couponId));
 	}
 	
 	@PostMapping("/update-coupon")
 	public ResponseEntity<Coupon> updateCoupon(@RequestBody Coupon coupon, HttpServletRequest request) {
-		CompanyService service = (CompanyService) systemService.getClient(request);
-		return ResponseEntity.ok().body(service.updateCoupon(coupon));
+		return ResponseEntity.ok().body(getCompanyService(request).updateCoupon(coupon));
 	}
 	
 	@GetMapping("/get-coupon/{id}")
 	public ResponseEntity<Coupon> getCoupon(@PathVariable Long couponId, HttpServletRequest request) {
-		CompanyService service = (CompanyService) systemService.getClient(request);
+		CompanyService service = getCompanyService(request);
 		return ResponseEntity.ok().body(service.getCoupon(couponId));
 	}
 	
 	@GetMapping("/get-all-coupons")
 	public ResponseEntity<List<Coupon>> getAllCoupons(HttpServletRequest request) {
-		CompanyService service = (CompanyService) systemService.getClient(request);
 		return ResponseEntity.ok().body(
-				service.getAllCoupons(Long.parseLong(request.getParameter("company_id"))));
+				getCompanyService(request).getAllCoupons(Long.parseLong(request.getParameter("company_id"))));
 	}
 
+	private CompanyService getCompanyService(HttpServletRequest request) {
+		return (CompanyService) systemService.getClient(request);
+	}
+	
 }

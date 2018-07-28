@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,7 +29,7 @@ public class Customer {
 	@Column(name = "NAME")
 	private String name;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "CUSTOMER_COUPON", 
 			joinColumns = @JoinColumn(name = "CUSTOMER_ID"),
 			inverseJoinColumns = @JoinColumn(name = "COUPON_ID"))

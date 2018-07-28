@@ -1,8 +1,8 @@
 package com.derzhavets.kuponim.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -39,7 +39,7 @@ public class Company {
 				joinColumns = @JoinColumn(name = "COMPANY_ID"),
 				inverseJoinColumns = @JoinColumn(name = "COUPON_ID"))
 	@JsonManagedReference
-	private Set<Coupon> coupons = new HashSet<>();
+	private List<Coupon> coupons = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -70,7 +70,7 @@ public class Company {
 		return coupons;
 	}
 	
-	public void setCoupons(Set<Coupon> coupons) {
+	public void setCoupons(List<Coupon> coupons) {
 		this.coupons = coupons;
 	}
 	@Override

@@ -37,6 +37,7 @@ public class CompanyServiceImpl implements CompanyService {
 		Company company = companyDao.getById(companyId);
 		coupon.setCompany(company);
 		couponDao.save(coupon);
+		System.err.println(coupon);
 		company.getCoupons().add(coupon);
 		companyDao.save(company);
 		return coupon;

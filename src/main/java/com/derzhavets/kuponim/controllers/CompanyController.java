@@ -33,10 +33,9 @@ public class CompanyController {
 	}
 
 
-	@GetMapping("/remove-coupon/{id}")
+	@GetMapping("/delete-coupon/{id}")
 	public ResponseEntity<Coupon> removeCoupon(@PathVariable("id") Long couponId, HttpServletRequest request) {
-		CompanyService service = getCompanyService(request);
-		return ResponseEntity.ok().body(service.removeCoupon(couponId));
+		return ResponseEntity.ok().body(getCompanyService(request).removeCoupon(couponId));
 	}
 	
 	@PostMapping("/update-coupon")
@@ -45,9 +44,8 @@ public class CompanyController {
 	}
 	
 	@GetMapping("/get-coupon/{id}")
-	public ResponseEntity<Coupon> getCoupon(@PathVariable Long couponId, HttpServletRequest request) {
-		CompanyService service = getCompanyService(request);
-		return ResponseEntity.ok().body(service.getCoupon(couponId));
+	public ResponseEntity<Coupon> getCoupon(@PathVariable("id") Long couponId, HttpServletRequest request) {
+		return ResponseEntity.ok().body(getCompanyService(request).getCoupon(couponId));
 	}
 	
 	@GetMapping("/get-all-coupons")

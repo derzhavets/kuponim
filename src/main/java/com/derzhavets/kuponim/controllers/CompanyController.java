@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.derzhavets.kuponim.entities.Coupon;
-import com.derzhavets.kuponim.services.CompanyService;
-import com.derzhavets.kuponim.services.SystemService;
+import com.derzhavets.kuponim.services.api.CompanyService;
+import com.derzhavets.kuponim.services.api.SystemService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -57,5 +57,5 @@ public class CompanyController {
 	private CompanyService getCompanyService(HttpServletRequest request) {
 		return (CompanyService) systemService.getClient(request);
 	}
-	
+ 	
 }

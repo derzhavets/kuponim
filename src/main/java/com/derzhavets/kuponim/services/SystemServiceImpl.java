@@ -10,12 +10,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.exceptions.SessionNotFoundException;
-import com.derzhavets.kuponim.login.Client;
+import com.derzhavets.kuponim.services.api.AdminService;
+import com.derzhavets.kuponim.services.api.CompanyService;
+import com.derzhavets.kuponim.services.api.CustomerService;
+import com.derzhavets.kuponim.services.api.SystemService;
 
 @Service
-public class SystemService {
+public class SystemServiceImpl implements SystemService {
 	
 	private final Map<ClientType, Client> clients = new HashMap<>();
 	
@@ -30,6 +34,10 @@ public class SystemService {
 	@Autowired
 	private CustomerService customerService;
 	
+	/* (non-Javadoc)
+	 * @see com.derzhavets.kuponim.services.SystemService#login(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	public String login(HttpServletRequest request) {
 		ClientType type = ClientType.valueOf(request.getParameter("client-type"));
 		clients.get(type).login(
@@ -42,6 +50,10 @@ public class SystemService {
 		return session.getId();
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.derzhavets.kuponim.services.SystemService#getClient(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	public Client getClient(HttpServletRequest request) throws SessionNotFoundException {
 		HttpSession session = request.getSession(false);
 		if (session == null || sessionsMap.get(session.getId()) == null) 

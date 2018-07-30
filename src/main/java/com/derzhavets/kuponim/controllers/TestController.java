@@ -21,9 +21,9 @@ import com.derzhavets.kuponim.helpers.exceptions.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.SessionNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
-import com.derzhavets.kuponim.services.AdminService;
-import com.derzhavets.kuponim.services.CustomerService;
-import com.derzhavets.kuponim.services.SystemService;
+import com.derzhavets.kuponim.services.api.AdminService;
+import com.derzhavets.kuponim.services.api.CustomerService;
+import com.derzhavets.kuponim.services.api.SystemService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController

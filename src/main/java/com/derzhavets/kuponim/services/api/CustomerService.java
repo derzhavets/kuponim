@@ -1,12 +1,12 @@
-package com.derzhavets.kuponim.services;
+package com.derzhavets.kuponim.services.api;
 
 import java.util.List;
 
 import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.helpers.exceptions.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
-import com.derzhavets.kuponim.login.Client;
 
 public interface CustomerService extends Client {
 

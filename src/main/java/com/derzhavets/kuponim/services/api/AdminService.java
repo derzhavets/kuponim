@@ -1,11 +1,11 @@
-package com.derzhavets.kuponim.services;
+package com.derzhavets.kuponim.services.api;
 
 import java.util.List;
 
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Customer;
+import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
-import com.derzhavets.kuponim.login.Client;
 
 public interface AdminService extends Client {
 

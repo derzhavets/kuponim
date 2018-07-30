@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.derzhavets.kuponim.entities.Coupon;
-import com.derzhavets.kuponim.services.CustomerService;
-import com.derzhavets.kuponim.services.SystemService;
+import com.derzhavets.kuponim.services.api.CustomerService;
+import com.derzhavets.kuponim.services.api.SystemService;
 
 @RestController
 @RequestMapping("/customer")
@@ -24,7 +24,7 @@ public class CustomerController {
 	
 	@GetMapping("/purchase-coupon/{id}")
 	public ResponseEntity<Coupon> purchaseCoupon(@PathVariable("id") Long couponId, HttpServletRequest request) {
-			return ResponseEntity.ok().body(
+			return ResponseEntity.ok().body( 
 					getCustomerService(request).purchaseCoupon(Long.parseLong(request.getParameter("customer_id")), couponId));
 	}
 	
@@ -38,5 +38,5 @@ public class CustomerController {
 	private CustomerService getCustomerService(HttpServletRequest request) {
 		return (CustomerService) systemService.getClient(request);
 	}
-	
+	 
 }

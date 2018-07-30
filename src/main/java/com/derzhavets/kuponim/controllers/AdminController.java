@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.services.AdminService;
-import com.derzhavets.kuponim.services.SystemService;
+import com.derzhavets.kuponim.services.api.AdminService;
+import com.derzhavets.kuponim.services.api.SystemService;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController { 
 	
 	@Autowired
 	private SystemService systemService;
@@ -69,5 +69,5 @@ public class AdminController {
 	private AdminService getAdminService(HttpServletRequest request) {
 		return (AdminService) systemService.getClient(request);
 	}
-	
+	 
 }

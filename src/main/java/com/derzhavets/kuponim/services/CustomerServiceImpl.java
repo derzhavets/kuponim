@@ -11,11 +11,12 @@ import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.entities.Customer;
+import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.helpers.exceptions.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
-import com.derzhavets.kuponim.login.Client;
+import com.derzhavets.kuponim.services.api.CustomerService;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -27,8 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerDao customerDao;
 	
 	@Override
-	public Client login(String email, String password) 
-			throws UserNotFoundException {
+	public Client login(String email, String password) throws UserNotFoundException {
 		customerDao.checkCustomerUser(email, password);
 		return this;
 	}
@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 				.collect(Collectors.toList());
 	}
 
-	private void updateCouponQuantity(Coupon coupon) {
+	private void updateCouponQuantity(Coupon coupon) throws EntityNotFoundException {
 		coupon.setAmount(coupon.getAmount() - 1);
 		if (coupon.getAmount() > 0) {
 			couponDao.save(coupon);

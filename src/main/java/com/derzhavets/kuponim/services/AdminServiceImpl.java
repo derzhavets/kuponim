@@ -9,9 +9,10 @@ import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Customer;
+import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
-import com.derzhavets.kuponim.login.Client;
+import com.derzhavets.kuponim.services.api.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {

@@ -1,4 +1,4 @@
-package com.derzhavets.kuponim.login;
+package com.derzhavets.kuponim.helpers;
 
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 

@@ -11,8 +11,10 @@ import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.entities.Income;
 import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.CouponType;
+import com.derzhavets.kuponim.helpers.IncomeType;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.services.api.CompanyService;
@@ -26,6 +28,9 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private CouponDao couponDao;
 
+	@Autowired
+	private IncomeConnectorService incomeService;
+	
 	@Override
 	public Client login(String email, String password) 
 			throws UserNotFoundException {
@@ -41,6 +46,10 @@ public class CompanyServiceImpl implements CompanyService {
 		System.err.println(coupon);
 		company.getCoupons().add(coupon);
 		companyDao.save(company);
+		
+		Income income = new Income(company.getEmail(), IncomeType.COMPANY_NEW_COUPON, 10.0);
+		incomeService.sendIncome(income);
+		
 		return coupon;
 	}
 

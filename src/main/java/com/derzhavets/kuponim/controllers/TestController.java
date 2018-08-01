@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.dao.repositories.CompanyRepository;
 import com.derzhavets.kuponim.dao.repositories.CouponRepository;
-import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.entities.Customer;
+import com.derzhavets.kuponim.entities.Income;
+import com.derzhavets.kuponim.helpers.IncomeType;
 import com.derzhavets.kuponim.helpers.exceptions.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.SessionNotFoundException;
@@ -46,17 +47,20 @@ public class TestController {
 	private CustomerService customerService;
 	
 	@GetMapping("/command")
-	public void test() {
-		Coupon coupon = couponRepo.findById(37L).get();
-		Company company = companyRepo.findById(6L).get();
-		
-		coupon.setCompany(company);
-		couponRepo.save(coupon);
-		company.getCoupons().add(coupon);
-		companyRepo.save(company);
-		
-		System.out.println("COMPANY: " + company);
-		System.out.println("COUPON: " + coupon );
+	public String test() {
+//		Coupon coupon = couponRepo.findById(37L).get();
+//		Company company = companyRepo.findById(6L).get();
+//		
+//		coupon.setCompany(company);
+//		couponRepo.save(coupon);
+//		company.getCoupons().add(coupon);
+//		companyRepo.save(company);
+//		
+//		System.out.println("COMPANY: " + company);
+//		System.out.println("COUPON: " + coupon );
+	
+		Income income = new Income("Apple", IncomeType.COMPANY_NEW_COUPON, 19.99);
+		return income.toJson();
 	}
 	
 	@GetMapping("/buy-coupon")

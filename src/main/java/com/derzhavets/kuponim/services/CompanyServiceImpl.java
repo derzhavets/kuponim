@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.derzhavets.kuponim.aspect.ReportIncome;
 import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
-import com.derzhavets.kuponim.entities.Income;
 import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.helpers.IncomeType;
@@ -28,9 +28,6 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private CouponDao couponDao;
 
-	@Autowired
-	private IncomeConnectorService incomeService;
-	
 	@Override
 	public Client login(String email, String password) 
 			throws UserNotFoundException {
@@ -39,6 +36,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
+	@ReportIncome(type = IncomeType.COMPANY_NEW_COUPON)
 	public Coupon createCoupon(Coupon coupon, Long companyId) throws EntityNotFoundException {
 		Company company = companyDao.getById(companyId);
 		coupon.setCompany(company);
@@ -46,9 +44,6 @@ public class CompanyServiceImpl implements CompanyService {
 		System.err.println(coupon);
 		company.getCoupons().add(coupon);
 		companyDao.save(company);
-		
-		Income income = new Income(company.getEmail(), IncomeType.COMPANY_NEW_COUPON, 10.0);
-		incomeService.sendIncome(income);
 		
 		return coupon;
 	}
@@ -59,8 +54,13 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public Coupon updateCoupon(Coupon coupon) {
-		return couponDao.save(coupon);
+	@ReportIncome(type = IncomeType.COMPANY_UPDATE_COUPON)
+	public Coupon updateCoupon(Coupon coupon) throws EntityNotFoundException {
+		Coupon updatedCoupon = couponDao.getById(coupon.getId());
+		updatedCoupon.setTitle(coupon.getTitle());
+		updatedCoupon.setMessage(coupon.getMessage());
+		updatedCoupon.setImageUrl(coupon.getImageUrl());
+		return couponDao.save(updatedCoupon);
 	}
 
 	@Override

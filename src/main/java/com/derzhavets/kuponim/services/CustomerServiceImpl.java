@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.derzhavets.kuponim.aspect.ReportIncome;
 import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.entities.Customer;
 import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.CouponType;
+import com.derzhavets.kuponim.helpers.IncomeType;
 import com.derzhavets.kuponim.helpers.exceptions.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
@@ -34,6 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
+	@ReportIncome(type = IncomeType.CUSTOMER_PURCHASE)
 	public Coupon purchaseCoupon(Long customerId, Long couponId) 
 			throws EntityNotFoundException, CouponTypeNotAllowedException {
 		Coupon coupon = couponDao.getById(couponId);
@@ -47,9 +50,6 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 
-	/* (non-Javadoc)
-	 * @see com.derzhavets.kuponim.services.CustomerService#getAllPurchasedCoupons()
-	 */
 	@Override
 	public List<Coupon> getAllPurchasedCoupons(Long customerId) throws EntityNotFoundException {
 		return new ArrayList<Coupon>(customerDao.getById(customerId).getCoupons());

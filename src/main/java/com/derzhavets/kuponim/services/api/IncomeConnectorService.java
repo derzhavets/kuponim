@@ -1,4 +1,4 @@
-package com.derzhavets.kuponim.services;
+package com.derzhavets.kuponim.services.api;
 
 import com.derzhavets.kuponim.entities.Income;
 

@@ -8,6 +8,7 @@ import java.net.URL;
 import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.entities.Income;
+import com.derzhavets.kuponim.services.api.IncomeConnectorService;
 
 @Service
 public class IncomeConnectorServiceImpl implements IncomeConnectorService {

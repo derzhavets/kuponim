@@ -67,5 +67,11 @@ public class Income {
 							client, description, date, amount);
 		
 	}
+
+	@Override
+	public String toString() {
+		return "Income [client=" + client + ", description=" + description + ", date=" + date + ", amount=" + amount
+				+ "]";
+	}
 	
 }

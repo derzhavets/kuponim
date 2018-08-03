@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity @Table(name = "COMPANIES")
-public class Company {
+public class Company  {
 
 	@Id @GeneratedValue
 	@Column(name = "COMPANY_ID") 

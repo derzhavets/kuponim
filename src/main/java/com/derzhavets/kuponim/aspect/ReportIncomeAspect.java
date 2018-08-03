@@ -17,10 +17,6 @@ import com.derzhavets.kuponim.services.api.IncomeConnectorService;
 @Component
 public class ReportIncomeAspect {
 	
-//	@Around("@annotation(ReportIncome)")
-//	public void doShit() {
-//		System.err.println("THIS IS ME DOING SHET");
-//	}
 	@Autowired
 	private IncomeConnectorService incomeService;
 	
@@ -28,27 +24,23 @@ public class ReportIncomeAspect {
 	private CustomerDao customerDao;
 	
 	@AfterReturning(pointcut = "@annotation(ReportIncome)", returning = "retVal")
-	public void sayHo(JoinPoint joinPoint, Object retVal) {
+	public void reportIncome(JoinPoint joinPoint, Object retVal) {
 		
 		ReportIncome reportIncomeAnno = getAnnotation(joinPoint);
+		System.err.println(joinPoint.getThis());
 		
 		switch (reportIncomeAnno.type()) {
 			case COMPANY_NEW_COUPON:
-				Income income = new Income(((Coupon)retVal).getCompany().getEmail(), 
-						IncomeType.COMPANY_NEW_COUPON, 100.0);
-				incomeService.sendIncome(income);
+				incomeService.sendIncome(new Income(((Coupon)retVal).getCompany().getEmail(), 
+						IncomeType.COMPANY_NEW_COUPON, 100.0));
 				break;
 			case COMPANY_UPDATE_COUPON:
-				Income income2 = new Income(((Coupon)retVal).getCompany().getEmail(), 
-						IncomeType.COMPANY_UPDATE_COUPON, 10.0);
-				incomeService.sendIncome(income2);
+				incomeService.sendIncome(new Income(((Coupon)retVal).getCompany().getEmail(), 
+						IncomeType.COMPANY_UPDATE_COUPON, 10.0));
 				break;
 			case CUSTOMER_PURCHASE:
-				Income income3 = new Income(
-						customerDao.getById((Long)joinPoint.getArgs()[0]).getEmail(), 
-						IncomeType.CUSTOMER_PURCHASE, 
-						((Coupon)retVal).getPrice());
-				incomeService.sendIncome(income3);
+				incomeService.sendIncome(new Income(customerDao.getById((Long)joinPoint.getArgs()[0]).getEmail(), 
+						IncomeType.CUSTOMER_PURCHASE, ((Coupon)retVal).getPrice()));
 				break;
 			default:
 				break;

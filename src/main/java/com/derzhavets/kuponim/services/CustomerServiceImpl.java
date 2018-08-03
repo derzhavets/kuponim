@@ -39,6 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@ReportIncome(type = IncomeType.CUSTOMER_PURCHASE)
 	public Coupon purchaseCoupon(Long customerId, Long couponId) 
 			throws EntityNotFoundException, CouponTypeNotAllowedException {
+		
 		Coupon coupon = couponDao.getById(couponId);
 		Customer customer = customerDao.getById(customerId);
 		if (!customer.getCoupons().add(coupon))

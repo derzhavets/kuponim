@@ -49,7 +49,7 @@ public class CompanyController {
 	}
 	
 	@GetMapping("/get-all-coupons")
-	public ResponseEntity<List<Coupon>> getAllCoupons(HttpServletRequest request) {
+	public ResponseEntity<List<Coupon>> etAllCoupons(HttpServletRequest request) {
 		return ResponseEntity.ok().body(
 				getCompanyService(request).getAllCoupons(Long.parseLong(request.getParameter("company_id"))));
 	}

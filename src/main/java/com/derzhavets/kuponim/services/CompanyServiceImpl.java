@@ -1,6 +1,7 @@
 package com.derzhavets.kuponim.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +13,7 @@ import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.dao.CouponDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Coupon;
-import com.derzhavets.kuponim.helpers.Client;
+import com.derzhavets.kuponim.entities.KuponimUser;
 import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.helpers.IncomeType;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
@@ -29,10 +30,9 @@ public class CompanyServiceImpl implements CompanyService {
 	private CouponDao couponDao;
 
 	@Override
-	public Client login(String email, String password) 
+	public KuponimUser login(String email, String password) 
 			throws UserNotFoundException {
-		companyDao.checkCompanyUser(email, password);
-		return this;
+		return companyDao.getCompanyUser(email, password);
 	}
 
 	@Override
@@ -77,6 +77,11 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyDao.getById(companyId).getCoupons().stream()
 				.filter(c -> c.getType().equals(type))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<CouponType> getCouponTypes() {
+		return Arrays.asList(CouponType.values());
 	}
 	
 }

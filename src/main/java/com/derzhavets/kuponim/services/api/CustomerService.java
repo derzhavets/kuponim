@@ -16,4 +16,6 @@ public interface CustomerService extends Client {
 
 	List<Coupon> getAllPurchasedCouponsByType(Long customerId, CouponType type) throws EntityNotFoundException;
 
+	List<Coupon> getAllCoupons();
+
 }

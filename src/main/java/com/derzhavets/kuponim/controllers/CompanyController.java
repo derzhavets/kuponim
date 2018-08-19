@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.derzhavets.kuponim.entities.Coupon;
+import com.derzhavets.kuponim.helpers.CouponType;
 import com.derzhavets.kuponim.services.api.CompanyService;
 import com.derzhavets.kuponim.services.api.SystemService;
 
 @CrossOrigin(origins = "http://localhost:4200")
-@RestController
+@RestController  
 @RequestMapping("/company")
 public class CompanyController {
 	
@@ -49,11 +50,17 @@ public class CompanyController {
 	}
 	
 	@GetMapping("/get-all-coupons")
-	public ResponseEntity<List<Coupon>> etAllCoupons(HttpServletRequest request) {
+	public ResponseEntity<List<Coupon>> getAllCoupons(HttpServletRequest request) {
 		return ResponseEntity.ok().body(
 				getCompanyService(request).getAllCoupons(Long.parseLong(request.getParameter("company_id"))));
 	}
-
+ 
+	@GetMapping("/get-coupon-types")
+	public ResponseEntity<List<CouponType>> getCouponTypes(HttpServletRequest request) {
+		return ResponseEntity.ok().body(
+				getCompanyService(request).getCouponTypes());
+	} 
+	 
 	private CompanyService getCompanyService(HttpServletRequest request) {
 		return (CompanyService) systemService.getClient(request);
 	}

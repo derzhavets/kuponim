@@ -29,6 +29,7 @@ public class KuponimApplication {
 	    config.addAllowedOrigin("*");
 	    config.addAllowedHeader("*");
 	    config.addAllowedMethod("*");
+	    config.addExposedHeader("");
 	    source.registerCorsConfiguration("/**", config);
 	    FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
 	    bean.setOrder(0);

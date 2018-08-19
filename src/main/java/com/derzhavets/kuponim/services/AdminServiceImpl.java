@@ -9,7 +9,7 @@ import com.derzhavets.kuponim.dao.CompanyDao;
 import com.derzhavets.kuponim.dao.CustomerDao;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.Customer;
-import com.derzhavets.kuponim.helpers.Client;
+import com.derzhavets.kuponim.entities.KuponimUser;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.services.api.AdminService;
@@ -25,11 +25,11 @@ public class AdminServiceImpl implements AdminService {
 	
 
 	@Override
-	public Client login(String email, String password) 
+	public KuponimUser login(String email, String password) 
 		throws UserNotFoundException {
 		if (!email.equals("admin") || !password.equals("1234"))
 			throw new UserNotFoundException("Admin username or password incorrect.");
-		return this;
+		return new KuponimUser(1L, "Admin", "admin@mail.com");
 	}
 	
 	/* (non-Javadoc)

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.derzhavets.kuponim.dao.repositories.CustomerRepository;
 import com.derzhavets.kuponim.entities.Customer;
+import com.derzhavets.kuponim.entities.KuponimUser;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 
 @Service
@@ -48,9 +49,13 @@ public class CustomerDao {
 		return customer;
 	}
 
-	public void checkCustomerUser(String email, String password) throws UserNotFoundException {
+	public KuponimUser getCustomerUser(String email, String password) throws UserNotFoundException {
 		List<Customer> customers = customerRepo.findByEmailAndPassword(email, password);
-		if (customers.isEmpty()) 
+		if (customers.isEmpty()) {
 			throw new UserNotFoundException("Customer email or password incorrect");
+		} else {
+			Customer customer = customers.get(0);
+			return new KuponimUser(customer.getId(), customer.getName(), customer.getEmail());
+		}
 	}
 }

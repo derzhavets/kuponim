@@ -35,6 +35,11 @@ public class CustomerController {
 					getCustomerService(request).getAllPurchasedCoupons(customerId));
 	}
 	
+	@GetMapping("/get-all-coupons")
+	public ResponseEntity<List<Coupon>> getAllCoupons(HttpServletRequest request) {
+		return ResponseEntity.ok().body(getCustomerService(request).getAllCoupons());
+	}
+	
 	private CustomerService getCustomerService(HttpServletRequest request) {
 		return (CustomerService) systemService.getClient(request);
 	}

@@ -17,6 +17,7 @@ import com.derzhavets.kuponim.dao.repositories.CouponRepository;
 import com.derzhavets.kuponim.entities.Coupon;
 import com.derzhavets.kuponim.entities.Customer;
 import com.derzhavets.kuponim.entities.Income;
+import com.derzhavets.kuponim.entities.KuponimUser;
 import com.derzhavets.kuponim.helpers.IncomeType;
 import com.derzhavets.kuponim.helpers.exceptions.CouponTypeNotAllowedException;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
@@ -74,7 +75,7 @@ public class TestController {
 	}
 	 
 	@GetMapping("/login")
-	public String setSession(HttpServletRequest request) throws UserNotFoundException {
+	public KuponimUser setSession(HttpServletRequest request) throws UserNotFoundException {
 		return systemService.login(request);
 	}
 	

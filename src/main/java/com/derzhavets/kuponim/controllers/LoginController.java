@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.derzhavets.kuponim.entities.KuponimUser;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 import com.derzhavets.kuponim.services.api.SystemService;
 
@@ -19,7 +20,7 @@ public class LoginController {
 	private SystemService systemService;
 	
 	@GetMapping("/")
-	public ResponseEntity<String> login(HttpServletRequest request) throws UserNotFoundException {
+	public ResponseEntity<KuponimUser> login(HttpServletRequest request) throws UserNotFoundException {
 		return ResponseEntity.ok().body(systemService.login(request));			
 	}
 }

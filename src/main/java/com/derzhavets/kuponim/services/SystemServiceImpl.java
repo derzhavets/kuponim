@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.derzhavets.kuponim.entities.KuponimUser;
 import com.derzhavets.kuponim.helpers.Client;
 import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.exceptions.SessionNotFoundException;
@@ -38,17 +39,18 @@ public class SystemServiceImpl implements SystemService {
 	 * @see com.derzhavets.kuponim.services.SystemService#login(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	public String login(HttpServletRequest request) {
+	public KuponimUser login(HttpServletRequest request) {
 		ClientType type = ClientType.valueOf(request.getParameter("client-type"));
-		clients.get(type).login(
+		KuponimUser user = clients.get(type).login(
 				request.getParameter("email"), request.getParameter("password"));
-		if (request.getSession() != null) 
-			request.getSession().invalidate();
+		request.getSession().invalidate();
 		HttpSession session = request.getSession();
 		session.setAttribute("client-type", type);
-		sessionsMap.put(session.getId(), session); 
-		return session.getId();
-	}
+		sessionsMap.put(session.getId(), session);
+		
+		System.err.println("User " + type + " " + request.getParameter("email") + " logged in.");
+		return user;
+	} 
 	
 	/* (non-Javadoc)
 	 * @see com.derzhavets.kuponim.services.SystemService#getClient(javax.servlet.http.HttpServletRequest)
@@ -63,6 +65,12 @@ public class SystemServiceImpl implements SystemService {
 		return clients.get(type);
 	}
 	
+//	@Override
+//	public Client getClient(HttpServletRequest request) throws SessionNotFoundException {
+//		ClientType type = ClientType.COMPANY;
+//		return clients.get(type);
+//	}
+	
 	@PostConstruct
 	private void collectServices() {
 		clients.put(ClientType.ADMIN, adminService);
@@ -71,3 +79,4 @@ public class SystemServiceImpl implements SystemService {
 	}
 	
 }
+	

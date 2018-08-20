@@ -65,11 +65,11 @@ public class SystemServiceImpl implements SystemService {
 		return clients.get(type);
 	}
 	
-//	@Override
-//	public Client getClient(HttpServletRequest request) throws SessionNotFoundException {
-//		ClientType type = ClientType.COMPANY;
-//		return clients.get(type);
-//	}
+	@Override
+	public String logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return "ok";
+	}
 	
 	@PostConstruct
 	private void collectServices() {
@@ -77,6 +77,7 @@ public class SystemServiceImpl implements SystemService {
 		clients.put(ClientType.COMPANY, companyService);
 		clients.put(ClientType.CUSTOMER, customerService);
 	}
+
 	
 }
 	

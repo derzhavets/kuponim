@@ -2,6 +2,7 @@ package com.derzhavets.kuponim.dao;
 
 import java.util.List;
 
+import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class CustomerDao {
 			throw new UserNotFoundException("Customer email or password incorrect");
 		} else {
 			Customer customer = customers.get(0);
-			return new KuponimUser(customer.getId(), customer.getName(), customer.getEmail());
+			return new KuponimUser(customer.getId(), customer.getName(), customer.getEmail(), ClientType.CUSTOMER);
 		}
 	}
 }

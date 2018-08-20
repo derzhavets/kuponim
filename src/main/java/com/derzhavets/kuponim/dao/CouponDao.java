@@ -2,6 +2,7 @@ package com.derzhavets.kuponim.dao;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ public class CouponDao {
 	private CouponRepository couponRepository;
 	
 	public List<Coupon> getAll() {
-		return couponRepository.findAll();
+		return couponRepository.findAll().stream()
+				.filter(c -> c.getAmount() > 0).collect(Collectors.toList());
 	}
 	
 	

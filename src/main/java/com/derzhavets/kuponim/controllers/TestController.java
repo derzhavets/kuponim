@@ -32,6 +32,7 @@ import com.derzhavets.kuponim.services.api.SystemService;
 @RequestMapping("/test/")
 public class TestController {
 	
+	
 	@Autowired
 	private CompanyRepository companyRepo;
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.derzhavets.kuponim.dao.repositories.CompanyRepository;
 import com.derzhavets.kuponim.entities.Company;
 import com.derzhavets.kuponim.entities.KuponimUser;
+import com.derzhavets.kuponim.helpers.ClientType;
 import com.derzhavets.kuponim.helpers.exceptions.EntityNotFoundException;
 import com.derzhavets.kuponim.helpers.exceptions.UserNotFoundException;
 
@@ -45,7 +46,7 @@ public class CompanyDao {
 			throw new UserNotFoundException("Company email or password is incorrect.");
 		} else {
 			Company company = companies.get(0);
-			return new KuponimUser(company.getId(), company.getName(), company.getEmail());
+			return new KuponimUser(company.getId(), company.getName(), company.getEmail(), ClientType.COMPANY);
 		}
 	}
 

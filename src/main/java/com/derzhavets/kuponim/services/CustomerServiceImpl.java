@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
 		if (!customer.getCoupons().add(coupon))
 			throw new CouponTypeNotAllowedException("Coupon of type " + coupon.getType() +
 					" already purchased for customer id=" + customerId);
-		updateCouponQuantity(coupon);
+		coupon.setAmount(coupon.getAmount() - 1);
 		customerDao.save(customer);
 		return coupon;
 	}
@@ -69,15 +69,5 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<Coupon> getAllCoupons() {
 		return couponDao.getAll();
 	}
-	
-	private void updateCouponQuantity(Coupon coupon) throws EntityNotFoundException {
-		coupon.setAmount(coupon.getAmount() - 1);
-		if (coupon.getAmount() > 0) {
-			couponDao.save(coupon);
-		} else {
-			couponDao.delete(coupon.getId());
-		}
-	}
-
 	
 }

@@ -10,6 +10,8 @@ public interface SystemService {
 
 	KuponimUser login(HttpServletRequest request);
 
+	String logout(HttpServletRequest request);
+
 	Client getClient(HttpServletRequest request) throws SessionNotFoundException;
 
 }

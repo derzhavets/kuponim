@@ -3,6 +3,7 @@ package com.derzhavets.kuponim.controllers;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class CompanyController {
 	private SystemService systemService;
 	
 	@PostMapping("/create-coupon")
-	public ResponseEntity<Coupon> createCoupon(@RequestBody Coupon coupon, HttpServletRequest request) {
+	public ResponseEntity<Coupon> createCoupon(@Valid @RequestBody Coupon coupon, HttpServletRequest request) {
 		return ResponseEntity.ok().body(getCompanyService(request).createCoupon(
 				coupon, Long.parseLong(request.getParameter("company_id"))));
 	}
@@ -40,7 +41,7 @@ public class CompanyController {
 	}
 	
 	@PostMapping("/update-coupon")
-	public ResponseEntity<Coupon> updateCoupon(@RequestBody Coupon coupon, HttpServletRequest request) {
+	public ResponseEntity<Coupon> updateCoupon(@Valid @RequestBody Coupon coupon, HttpServletRequest request) {
 		return ResponseEntity.ok().body(getCompanyService(request).updateCoupon(coupon));
 	}
 	

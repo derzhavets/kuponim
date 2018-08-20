@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -25,13 +26,13 @@ public class Company  {
 	@Column(name = "COMPANY_ID") 
 	private Long id;
 	
-	@Column(name = "NAME")
+	@Column(name = "NAME") @NotNull
 	private String name;
 	
-	@Column(name = "PASSWORD")
+	@Column(name = "PASSWORD") @NotNull
 	private String password;
 	
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL") @NotNull
 	private String email;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)

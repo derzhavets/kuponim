@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity @Table(name = "CUSTOMERS")
 public class Customer {
@@ -20,13 +21,13 @@ public class Customer {
 	@Column(name = "CUSTOMER_ID")
 	private Long id;
 	
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL") @NotNull
 	private String email;
 	
-	@Column(name = "PASSWORD")
+	@Column(name = "PASSWORD") @NotNull
 	private String password;
 
-	@Column(name = "NAME")
+	@Column(name = "NAME") @NotNull
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

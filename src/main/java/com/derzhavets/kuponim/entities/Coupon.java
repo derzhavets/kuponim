@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.derzhavets.kuponim.helpers.CouponType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -27,26 +28,26 @@ public class Coupon {
 	@Column(name = "COUPON_ID")
 	private Long id;
 	
-	@Column(name = "TITLE")
+	@Column(name = "TITLE") @NotNull
 	private String title;
 	
 	@Column(name = "START_DATE")
 	private LocalDate startDate;
 	
-	@Column(name = "END_DATE")
+	@Column(name = "END_DATE") @NotNull
 	private LocalDate endDate;
 	
-	@Column(name = "AMOUNT")
+	@Column(name = "AMOUNT") @NotNull
 	private int amount;
 	
-	@Column(name = "TYPE")
+	@Column(name = "TYPE") @NotNull
 	@Enumerated(EnumType.STRING)
 	private CouponType type;
 	
 	@Column(name = "MESSAGE")
 	private String message;
 	
-	@Column(name = "PRICE", precision = 2)
+	@Column(name = "PRICE", precision = 2) @NotNull
 	private double price;
 	
 	@Column(name = "IMAGE_URL")

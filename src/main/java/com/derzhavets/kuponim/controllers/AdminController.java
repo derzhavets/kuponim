@@ -3,6 +3,7 @@ package com.derzhavets.kuponim.controllers;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class AdminController {
 	private SystemService systemService;
 	
 	@PostMapping("/save-company")
-	public ResponseEntity<Company> saveCompany(@RequestBody Company company, HttpServletRequest request) {
+	public ResponseEntity<Company> saveCompany(@Valid @RequestBody Company company, HttpServletRequest request) {
 		return ResponseEntity.ok().body(getAdminService(request).saveCompany(company));
 	}
 
@@ -47,7 +48,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/save-customer")
-	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer, HttpServletRequest request) {
+	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer, HttpServletRequest request) {
 		return ResponseEntity.ok().body(getAdminService(request).saveCustomer(customer));
 	}
 	

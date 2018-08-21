@@ -23,6 +23,14 @@ public class ReportIncomeAspect {
 	@Autowired
 	private CustomerDao customerDao;
 	
+	
+	/**
+	 * Based on the annotation params, makes respective call to the income report microservice
+	 * through IncomeConnectorService
+	 * 
+	 * @param joinPoint of the annotated method aspect
+	 * @param retVal returned value of the annotated method
+	 */
 	@AfterReturning(pointcut = "@annotation(ReportIncome)", returning = "retVal")
 	public void reportIncome(JoinPoint joinPoint, Object retVal) {
 		
@@ -48,6 +56,13 @@ public class ReportIncomeAspect {
 		
 	}
 	
+	/**
+	 * Extracts ReportIncome annotation that the called method was annotated with 
+	 * to get it's params
+	 * 
+	 * @param joinPoint from the method annotated with @ReportIncome
+	 * @return annotation
+	 */
 	private ReportIncome getAnnotation(JoinPoint joinPoint) {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		return signature.getMethod().getAnnotation(ReportIncome.class);

@@ -7,6 +7,10 @@ import java.lang.annotation.Target;
 
 import com.derzhavets.kuponim.helpers.IncomeType;
 
+/**
+ * Annotation to mark business logic methods that produce system income 
+ * @param type of income to be registered
+ */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ReportIncome {

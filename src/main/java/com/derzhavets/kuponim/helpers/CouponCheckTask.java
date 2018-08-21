@@ -16,6 +16,9 @@ public class CouponCheckTask {
 	@Autowired
 	private CouponDao couponDao;
 	
+	/**
+	 * Once in a 24 retrieve all expired coupons from the database and delete them
+	 */
 	@Scheduled(fixedRate = 1000 * 3600 * 24)
 	public void deleteExpiredCoupons() {
 		List<Coupon> coupons = couponDao.getExpiredFrom(LocalDate.now());

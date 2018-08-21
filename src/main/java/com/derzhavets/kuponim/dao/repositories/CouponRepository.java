@@ -13,8 +13,20 @@ import com.derzhavets.kuponim.entities.Coupon;
 @Repository
 public interface CouponRepository extends JpaRepository<Coupon, Long>{
 	
+	/**
+	 * Retrieve all the coupon entities from the database
+	 * 
+	 * @return list of found coupons
+	 */
 	List<Coupon> findAll();
 	
+	/**
+	 * Get all the coupon entities from the database based on their end date comparing
+	 * it against date passed in the parameters
+	 * 
+	 * @param date to compare
+	 * @return list of found coupons
+	 */
 	@Query("SELECT c from Coupon c where c.endDate < :date")
 	List<Coupon> getExpiredFrom(@Param("date") LocalDate date);
 	
